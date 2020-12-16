@@ -1,7 +1,5 @@
 
 class MinHeap:
-    '''
-    '''
     def __init__(self,cmp=None):
         self.cmp=cmp
         self.array=[]
@@ -18,8 +16,8 @@ class MinHeap:
         if self.cmp:
             decision=self.cmp(self.array[parentI],self.array[childI])
         else :
-            decision= True if self.array[parentI]>self.array[childI] else False
-        return decision
+            decision= True if self.array[parentI]<self.array[childI] else False
+        return not decision
     
     def swap(self,index1,index2):
         self.array[index1],self.array[index2]=(self.array[index2],self.array[index1])
@@ -67,7 +65,7 @@ class MinHeap:
 
 
 def cmp(a,b):
-    return True if b>a else False
+    return True if a<b else False
 
 pq=MinHeap(cmp=cmp)
 pq.push(10)

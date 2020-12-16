@@ -1,5 +1,7 @@
-from collections import defaultdict
 from functools import cmp_to_key
+import sys
+
+sys.setrecursionlimit(10**6)
 class Graph: 
     def __init__(self, vertices):
         self.V = vertices
@@ -36,12 +38,15 @@ class Graph:
         return True
     
     def comp(self,item1,item2):
+        decision=0
         if item1[2]==item2[2]:
             sum1=sum(item1)
             sum2=sum(item2)
-            return sum1-sum2
+            decision = sum1-sum2
         else :
-            item1[2]-item2[2]   
+            decision = item1[2]-item2[2]
+        
+        return decision   
 
     def KruskalMST(self):
  
@@ -59,5 +64,21 @@ class Graph:
                 minimumCost+=w
             if e >= self.V - 1:
                 break
+        return minimumCost
+
+
+input=sys.stdin.readline
+inputs=lambda converter: list(map(converter,input().split()))
         
-        
+def main():
+    nodes,edges=inputs(int)
+    graph=Graph(nodes)
+    for i in range(edges):
+        u,v,w=inputs(int)
+        u,v=u-1,v-1
+        graph.addEdge(u,v,w)
+
+    totalWeight=graph.KruskalMST()
+    print(totalWeight)
+
+main()

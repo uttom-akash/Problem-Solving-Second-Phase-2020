@@ -91,6 +91,7 @@ print(pq.pop())
 print(pq.pop())
 print(pq.pop())
 print(pq.pop())
+print(pq.pop())
 print("Finished")
 
 
