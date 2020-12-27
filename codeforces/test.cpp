@@ -1,105 +1,130 @@
+//Author Vitalii
 #include <iostream>
-#include <sstream>
-#include <cstdio>
 #include <vector>
-#include <cmath>
-#include <queue>
-#include <string>
-#include <cstring>
-#include <cassert>
-#include <iomanip>
 #include <algorithm>
-#include <set>
-#include <map>
-#include <ctime>
-#include <cmath>
-
-#define forn(i, n) for(int i=0;i<n;++i)
-#define fore(i, l, r) for(int i = int(l); i <= int(r); ++i)
-#define sz(v) int(v.size())
-#define all(v) v.begin(), v.end()
-#define pb push_back
-#define mp make_pair
-#define x first
-#define y1 ________y1
-#define y second
-#define ft first
-#define sc second
-#define pt pair<int, int>
-
-template<typename X> inline X abs(const X& a) { return a < 0? -a: a; }
-template<typename X> inline X sqr(const X& a) { return a * a; }
-
-typedef long long li;
-typedef long double ld;
-
+#include <string>
 using namespace std;
-
-const int INF = 1000 * 1000 * 1000;
-const ld EPS = 1e-9;
-const ld PI = acos(-1.0);
-const int N = 200 * 1000 + 13;
-
-int n;
-string s;
-string revS;
-vector<int> posS[30];
-vector<int> posT[30];
-int cnt[30];
-int t[N];
-
-inline int sum (int r) {
-	int result = 0;
-	for (; r >= 0; r = (r & (r+1)) - 1)
-		result += t[r];
-	return result;
-}
-
-inline void inc (int i, int d) {
-	for (; i < n; i = (i | (i+1)))
-		t[i] += d;
-}
-
-int sum (int l, int r) {
-	return sum (r) - sum (l-1);
-}
-     
-inline void read() {	
-	n=9;
-    s="icpcsguru";
-}
-
-inline void solve() {
-	revS = s;
-	reverse(all(revS));
-	for (int i = 0; i < sz(s); i++) {
-		posS[s[i] - 'a'].pb(i);
-		posT[revS[i] - 'a'].pb(i);
-	}
-	li ans = 0;
-	for (int i = 0; i < sz(revS); i++) {
-		int let = revS[i] - 'a';
-		int cur = posS[let][cnt[let]];
-		int oldC = cur;
-		cur += sum(cur, n - 1);
-		int need = i;
-		ans += cur - need;
-		inc(oldC, 1);
-		cnt[let]++;
-	}
-	cout << ans << endl;
-}
-
-int main () {
-#ifdef fcspartakm
-    freopen("input.txt", "r", stdin);
-    //freopen("output.txt", "w", stdout);
-#endif
-    srand(time(NULL));
-    cerr << setprecision(10) << fixed;
+#define FILL(a, val) memset((a), (val), sizeof(a));
+namespace SuffixArray
+{
+    const int MAXSIZE = 200100;
+    const int ALPHABET = 128;
+    int p[MAXSIZE], c[MAXSIZE], cnt[MAXSIZE];
+    int pn[MAXSIZE], cn[MAXSIZE];
+    vector<int> getSuffixArray(string& s)
+    {
+        FILL(cnt, 0);
+        int n = s.size();
+        for (int i = 0; i < n; ++i)
+        {
+            ++cnt[s[i]];
+        }
+        for (int i = 1; i < ALPHABET; ++i)
+        {
+            cnt[i] += cnt[i-1];
+        }
+        for (int i = 0; i < n; ++i)
+        {
+            p[--cnt[s[i]]] = i;
+        }
+        int count = 1;
+        c[p[0]] = count-1;
+        for (int i = 1; i < n; ++i)
+        {
+            if (s[p[i]] != s[p[i-1]])
+                ++count;
+            c[p[i]] = count - 1;
+        }
+        for (int h = 0; (1<<h) < n; ++h)
+        {
+            for (int i = 0; i < n; ++i)
+            {
+                pn[i] = p[i] - (1<<h);
+                if (pn[i] < 0)
+                    pn[i] += n;
+            }
     
-    read();
-    solve();
- 
-    //cerr << "TIME: " << clock() << endl;
+            FILL(cnt, 0);
+    
+            for (int i = 0; i < n; ++i)
+            {
+                ++cnt[c[i]];
+            }
+            for (int i = 1; i < count; ++i)
+            {
+                cnt[i] += cnt[i-1];
+            }
+            for (int i = n-1; i >= 0; --i)
+            {
+                p[--cnt[c[pn[i]]]] = pn[i];
+            }
+            count = 1;
+            cn[p[0]] = count-1;
+            for (int i = 1; i < n; ++i)
+            {
+                int pos1 = (p[i] + (1<<h))%n;
+                int pos2 = (p[i-1] + (1<<h))%n;
+                if (c[p[i]] != c[p[i-1]] || c[pos1] != c[pos2])
+                    ++count;
+                cn[p[i]] = count - 1;
+            }
+            for (int i = 0; i < n; ++i)
+            {
+                c[i] = cn[i];
+            }
+        }
+        vector<int> res;
+        res.reserve(n);
+        for (int i = 0; i < n; ++i)
+        {
+            res.push_back(c[i]);
+        }
+        return res;
+    }
+}
+// string solve(string& a, string& b)
+// {
+//     a.push_back('a');
+//     b.push_back('b');
+//     string s = a+b;
+//     vector<int> suffixArray = SuffixArray::getSuffixArray(s);
+//     string res = "";
+//     int pos1=0, pos2=0;
+//     while (true)
+//     {
+//         if (pos1 >= (a.size()-1) && pos2 >= (b.size()-1))
+//         {
+//             break;
+//         }
+//         if (pos1 >= (a.size()-1))
+//         {
+//             res += b[pos2++];
+//             continue;
+//         }
+//         if (pos2 >= (b.size()-1))
+//         {
+//             res += a[pos1++];
+//             continue;
+//         }
+//         if (suffixArray[pos1] < suffixArray[a.size() + pos2])
+//             res += a[pos1++];
+//         else
+//             res += b[pos2++];
+//     }
+//     return res;
+// }
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    // int T;
+    // cin >> T;
+    // for (int t = 0; t < T; ++t)
+    // {
+    //     string a,b;
+    //     cin >> a >> b;
+    //     cout << solve(a,b) << endl;
+    // }
+	s="banana";
+	vector<int> suffixArray = SuffixArray::getSuffixArray(s);
+    return 0;
 }
