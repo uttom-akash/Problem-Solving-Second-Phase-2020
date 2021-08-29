@@ -6,25 +6,36 @@
 
 using namespace std;
 
-void optimize(){
-    ios_base ::sync_with_stdio(false);  
+void optimize()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
 }
 
-void setupFileIO(string fin = "input.txt",string fout = "output.txt"){
-    freopen(fin.c_str(),"r",stdin);
-    freopen(fout.c_str(),"w",stdout);
+void setupFileIO(string fin = "input.txt", string fout = "output.txt")
+{
+    freopen(fin.c_str(), "r", stdin);
+    freopen(fout.c_str(), "w", stdout);
 }
 
+void solve()
+{
+    int tc;
+    cin >> tc;
+
+    for (int c = 0; c < tc; c++)
+    {
+        string s;
+        cin >> s;
+        cout << s << "\n";
+    }
+}
 
 int main()
 {
-    optimize();   
+    optimize();
 
-    int n;
-    
-    cin>>n;
-
-    cout<<n<<"\n";
+    solve();
 
     return 0;
 }
