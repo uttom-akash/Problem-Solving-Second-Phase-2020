@@ -3,7 +3,6 @@
 #define limit 10000
 #define mod 1000007
 #define ll long long
-#define int_max numeric_limits<int>::max()
 
 using namespace std;
 
@@ -12,7 +11,7 @@ void optimize()
     ios_base ::sync_with_stdio(false);
 }
 
-void setupFileIO(string fin = "input.txt", string fout = "output.txt")
+void setupFileIO(string fin = "data/input.txt", string fout = "data/Boutput.txt")
 {
     freopen(fin.c_str(), "r", stdin);
     freopen(fout.c_str(), "w", stdout);
@@ -25,7 +24,7 @@ pair<int, int> checkRow(string row, int n)
     for (int i = 0; i < n; i++)
     {
         if (row[i] == 'O')
-            return {int_max, pos};
+            return {INT_MAX, pos};
         if (row[i] == '.')
             nX++, pos = i;
     }
@@ -53,7 +52,7 @@ pair<int, int> canWin()
         cin >> grid[i];
     }
 
-    int xNeeded = int_max;
+    int xNeeded = INT_MAX;
     int nSet = 0;
     for (int i = 0; i < n; i++)
     {
@@ -62,7 +61,7 @@ pair<int, int> canWin()
         xNeeded = min(xNeeded, min(nxr, nxc));
     }
 
-    if (xNeeded == int_max)
+    if (xNeeded == INT_MAX)
         return {xNeeded, nSet};
 
     int mapper[n + 5];
@@ -98,16 +97,22 @@ void solve()
 
     cin >> ntc;
 
-    for (int tc = 0; tc < ntc; tc++)
+    for (int tc = 1; tc <= ntc; tc++)
     {
         auto res = canWin();
-        cout << res.first << " " << res.second << "\n";
+        if (res.first == INT_MAX)
+            cout << "Case #" << tc << ": "
+                 << "Impossible\n";
+        else
+            cout << "Case #" << tc << ": " << res.first << " " << res.second << "\n";
     }
 }
 
 int main()
 {
     optimize();
+
+    setupFileIO();
 
     solve();
 

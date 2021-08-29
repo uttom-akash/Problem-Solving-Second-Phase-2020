@@ -12,7 +12,7 @@ void optimize()
     cin.tie(0);
 }
 
-void setupFileIO(string fin = "input.txt", string fout = "output.txt")
+void setupFileIO(string fin = "data/consistency_chapter_2_input.txt", string fout = "data/A2output.txt")
 {
     freopen(fin.c_str(), "r", stdin);
     freopen(fout.c_str(), "w", stdout);
@@ -80,10 +80,10 @@ int getMinSeconds(int dist[][30], string s)
 
 void solve()
 {
-    int tc;
-    cin >> tc;
+    int ntc;
+    cin >> ntc;
 
-    for (int c = 0; c < tc; c++)
+    for (int tc = 1; tc <= ntc; tc++)
     {
         string s;
         int nEdge, nNode = 26;
@@ -100,7 +100,10 @@ void solve()
         makeGraph(graph, edges, nEdge, nNode);
         setMinDistance(graph, nNode);
         int seconds = getMinSeconds(graph, s);
-        cout << seconds << "\n";
+        if (seconds == INT_MAX)
+            cout << "Case #" << tc << ": " << -1 << "\n";
+        else
+            cout << "Case #" << tc << ": " << seconds << "\n";
     }
 }
 

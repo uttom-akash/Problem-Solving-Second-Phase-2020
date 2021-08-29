@@ -11,7 +11,7 @@ void optimize()
     ios_base ::sync_with_stdio(false);
 }
 
-void setupFileIO(string fin = "input.txt", string fout = "output.txt")
+void setupFileIO(string fin = "data/consistency_chapter_1_input.txt", string fout = "data/A1output.txt")
 {
     freopen(fin.c_str(), "r", stdin);
     freopen(fout.c_str(), "w", stdout);
@@ -33,27 +33,24 @@ bool isVowel(char c)
 
 int getMinSeconds(string s)
 {
-    int vowelsMapper[30], consonentMapper[30];
+    int mapper[30];
     int totalvowels = 0, mostVowels = 0;
-    int totalCons = 0, mostCons = 0;
+    int totalCons = 0, mostCons = 0, strLength = s.size();
 
-    memset(vowelsMapper, 0, sizeof(vowelsMapper));
-    memset(consonentMapper, 0, sizeof(consonentMapper));
+    memset(mapper, 0, sizeof(mapper));
 
-    for (int i = 0; i < s.size(); i++)
+    for (int i = 0; i < strLength; i++)
     {
         int index = s[i] - 'A';
+        mapper[index]++;
         if (isVowel(s[i]))
         {
-
-            vowelsMapper[index]++;
-            mostVowels = max(mostVowels, vowelsMapper[index]);
+            mostVowels = max(mostVowels, mapper[index]);
             totalvowels++;
         }
         else
         {
-            consonentMapper[index]++;
-            mostCons = max(mostCons, consonentMapper[index]);
+            mostCons = max(mostCons, mapper[index]);
             totalCons++;
         }
     }
@@ -66,20 +63,23 @@ int getMinSeconds(string s)
 
 void solve()
 {
-    int tc;
-    cin >> tc;
+    int ntc;
+    cin >> ntc;
 
-    for (int c = 0; c < tc; c++)
+    for (int tc = 1; tc <= ntc; tc++)
     {
         string s;
         cin >> s;
-        cout << getMinSeconds(s) << "\n";
+        int seconds = getMinSeconds(s);
+        cout << "Case #" << tc << ": " << seconds << "\n";
     }
 }
 
 int main()
 {
     optimize();
+
+    setupFileIO();
 
     solve();
 
