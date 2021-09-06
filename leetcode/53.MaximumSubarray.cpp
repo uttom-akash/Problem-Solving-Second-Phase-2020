@@ -18,6 +18,27 @@ void setupFileIO(string fin = "input.txt", string fout = "output.txt")
     freopen(fout.c_str(), "w", stdout);
 }
 
+class Solution
+{
+public:
+    int maxSubArray(vector<int> &nums)
+    {
+        int sum = 0, mxSum = 0, mxNum = -100000;
+
+        for (int num : nums)
+        {
+            mxNum = max(mxNum, num);
+            sum = max(sum + num, 0);
+            mxSum = max(mxSum, sum);
+        }
+
+        if (mxNum < 0)
+            mxSum = mxNum;
+
+        return mxSum;
+    }
+};
+
 void solve()
 {
     int ntc;

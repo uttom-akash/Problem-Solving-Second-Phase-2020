@@ -11,7 +11,7 @@ void optimize()
     ios_base ::sync_with_stdio(false);
 }
 
-void setupFileIO(string fin = "data/input.txt", string fout = "data/Boutput.txt")
+void setupFileIO(string fin = "data/xs_and_os_input.txt", string fout = "data/Boutput.txt")
 {
     freopen(fin.c_str(), "r", stdin);
     freopen(fout.c_str(), "w", stdout);
