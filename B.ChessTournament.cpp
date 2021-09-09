@@ -53,8 +53,10 @@ void solve()
                         mat[i] += "X";
                     }
                     else if (s[j] == '1')
+                    {
                         mat[i] += '=';
-                    else if (mapper[i] == -1 && mapper[j] != i)
+                    }
+                    else if ((mapper[i] == -1 && mapper[j] != i) || mat[j][i] == '-')
                     {
                         mat[i] += '+';
                         mapper[i] = j;
