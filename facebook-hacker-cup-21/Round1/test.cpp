@@ -21,7 +21,6 @@ void setupFileIO(string fin = "data/input.txt", string fout = "data/testOutput.t
 int A1(int N, string W)
 {
     int nSwitch = 0;
-
     int prevI = -1;
 
     for (int i = 0; i < N; i++)
@@ -48,7 +47,7 @@ int A2(int N, string W)
         {
             string s = W.substr(i, k);
             ll ia = A1(k, s);
-            ans = (ans + ia) % mod;
+            ans = (ans + ia);
         }
     }
     return ans;

@@ -12,7 +12,7 @@ void optimize()
     cin.tie(0);
 }
 
-void setupFileIO(string fin = "data/weak_typing_chapter_1_validation_input.txt", string fout = "data/A1output.txt")
+void setupFileIO(string fin = "data/weak_typing_chapter_1_input (1).txt", string fout = "data/A1output.txt")
 {
     freopen(fin.c_str(), "r", stdin);
     freopen(fout.c_str(), "w", stdout);

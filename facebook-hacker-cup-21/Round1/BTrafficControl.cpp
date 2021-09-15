@@ -12,7 +12,7 @@ void optimize()
     cin.tie(0);
 }
 
-void setupFileIO(string fin = "data/traffic_control_validation_input.txt", string fout = "data/Boutput.txt")
+void setupFileIO(string fin = "data/traffic_control_input.txt", string fout = "data/Boutput.txt")
 {
     freopen(fin.c_str(), "r", stdin);
     freopen(fout.c_str(), "w", stdout);
@@ -46,7 +46,7 @@ void solve()
                 grid[i][j] = 1000;
         }
 
-        int r1 = 0, r2 = N - 1, c1 = 0, c2 = 0;
+        int r1 = 0, c1 = 0, r2 = N - 1, c2 = 0;
         for (int i = 0; i < shortPath; i++)
         {
             grid[r1][c1] = 1;

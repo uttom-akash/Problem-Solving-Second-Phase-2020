@@ -1,1 +1,16 @@
-ans: 11
+ans: 0
+ans: 1
+ans: 0
+ans: 36
+ans: 146
+ans: 0
+ans: 2
+ans: 0
+ans: 32
+ans: 188
+ans: 0
+ans: 0
+ans: 0
+ans: 165
+ans: 165
+ans: 181076

@@ -1,0 +1,94 @@
+#include <iostream>
+#include<stdio.h>
+#include <cstring>
+#define write freopen("output.txt","w",stdout)
+#define read freopen("input.txt","r",stdin)
+#define INF INT_MAX
+using namespace std;
+
+
+int getCurrentSwap(int otherSameTypeNumber, int otherTypeNumber)
+{
+    return 2*otherSameTypeNumber+otherTypeNumber;
+}
+bool isVowel(char s)
+{
+    return s=='A'||s=='E'||s=='I'||s=='O'||s=='U';
+}
+
+int getMinimumSwap(string str)
+{
+    int counter[200], vowelCount=0, consonantCount=0;
+    memset(counter, 0, sizeof(counter));
+    for(int i=0;i<str.size(); i++)
+    {
+        char currentChar=str[i];
+//        if(counter[currentChar]==0)
+        {
+            if(isVowel(currentChar))
+            {
+                vowelCount++;
+            }
+            else
+            {
+                consonantCount++;
+            }
+            counter[currentChar]++;
+        }
+
+    }
+    int minNum=1<<30, currentSwap;
+    for(int i='A';i<'Z'; i++)
+    {
+        if(counter[i]==0)
+        {
+           // continue;
+        }
+        if(isVowel(i))
+        {
+            currentSwap=getCurrentSwap(vowelCount-counter[i], consonantCount);
+        }
+        else
+        {
+            currentSwap=getCurrentSwap(consonantCount-counter[i], vowelCount);
+        }
+        minNum=min(minNum,currentSwap);
+    }
+    return minNum;
+
+}
+
+int main()
+{
+    //cout << "Hello world!" << endl;
+    write;
+    read;
+    long long totalNodes,totalRelations, totalInput, shortestPath[60][60],relation[60][60],x ,y, z, temp;
+    string inp;
+    cin>>totalInput;
+    for(int tt=0;tt<totalInput; tt++)
+    {
+        cin>>temp;
+        cin>>inp;
+        char last=' ';
+        int swtch=0;
+        for(int i=0;i<temp;i++)
+        {
+            if(inp[i]=='F')
+            {
+                continue;
+            }
+            if(last!=' ' && last!=inp[i])
+            {
+                swtch++;
+            }
+            last=inp[i];
+        }
+        cout<<"Case #"<<tt+1<<": "<<swtch<<endl;
+
+    }
+    return 0;
+}
+
+
+
