@@ -6,8 +6,6 @@
 
 using namespace std;
 
-// fill_n(&a[0][0], ntc * ntc, -100);
-
 void optimize()
 {
     ios_base::sync_with_stdio(0);

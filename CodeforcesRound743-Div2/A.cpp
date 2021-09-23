@@ -6,8 +6,6 @@
 
 using namespace std;
 
-// fill_n(&a[0][0], ntc * ntc, -100);
-
 void optimize()
 {
     ios_base::sync_with_stdio(0);
@@ -28,9 +26,23 @@ void solve()
 
     for (int tc = 0; tc < ntc; tc++)
     {
+        int n;
         string s;
-        cin >> s;
-        cout << s << "\n";
+        cin >> n >> s;
+
+        reverse(s.begin(), s.end());
+        int ans = s[0] - '0';
+
+        for (int i = 1; i < n; i++)
+        {
+            int num = (s[i] - '0');
+            if (num == 0)
+                continue;
+            ans += num;
+            ans++;
+        }
+
+        cout << ans << "\n";
     }
 }
 
