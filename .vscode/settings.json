@@ -3,6 +3,7 @@
         "limits": "cpp",
         "iostream": "cpp",
         "bitset": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "regex": "cpp"
     }
 }
