@@ -5,6 +5,8 @@
         "bitset": "cpp",
         "set": "cpp",
         "regex": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "*.tcc": "cpp",
+        "string": "cpp"
     }
 }
