@@ -1,1 +1,1 @@
-g++ D.cpp -o a.out && a.out
+g++ A.cpp -o a.out && a.out

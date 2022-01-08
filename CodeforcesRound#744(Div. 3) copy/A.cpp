@@ -28,28 +28,37 @@ void solve()
 
     for (int tc = 0; tc < ntc; tc++)
     {
-        int a, b, c;
-        cin >> a >> b >> c;
 
-        int mxVotes = max(a, max(b, c));
-        int cnt = 0;
-        if (mxVotes == a)
-            cnt++;
+        string s, t, ss = "";
+        cin >> s >> t;
 
-        if (mxVotes == b)
-            cnt++;
+        int n = s.size();
+        sort(s.begin(), s.end());
 
-        if (mxVotes == c)
-            cnt++;
+        if (t == "abc" and s.find('c') != n)
+        {
+            string c = "";
+            int aep = 0;
 
-        if (cnt > 1)
-            cout << max(0, mxVotes - a + 1) << " "
-                 << max(0, mxVotes - b + 1) << " "
-                 << max(0, mxVotes - c + 1) << "\n";
+            for (int i = 0; i < n; i++)
+            {
+                if (s[i] == 'c')
+                    c += 'c';
+                else
+                    ss += s[i];
+
+                if (s[i] == 'a')
+                    aep++;
+            }
+
+            ss = ss.substr(0, aep) + c + ss.substr(aep, ss.size());
+        }
         else
-            cout << max(0, (mxVotes - a + (mxVotes == a ? 0 : 1))) << " "
-                 << max(0, (mxVotes - b + (mxVotes == b ? 0 : 1))) << " "
-                 << max(0, (mxVotes - c + (mxVotes == c ? 0 : 1))) << "\n";
+        {
+            ss = s;
+        }
+
+        cout << ss << "\n";
     }
 }
 
