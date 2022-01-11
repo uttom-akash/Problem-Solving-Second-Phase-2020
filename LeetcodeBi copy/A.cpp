@@ -20,61 +20,45 @@ void setupFileIO(string fin = "input.txt", string fout = "output.txt")
     freopen(fout.c_str(), "w", stdout);
 }
 
-class Solution
-{
+class Solution {
 public:
-    vector<pair<int, int>> adj[100005];
-    static bool comp(const vector<int> &a, const vector<int> &b)
-    {
-        return a[2] < b[2];
-    }
+    bool checkValid(vector<vector<int>>& matrix) {
+        int n=matrix.size();
 
-    vector<int> findAllPeople(int n, vector<vector<int>> &meetings, int firstPerson)
-    {
-        sort(meetings.begin(), meetings.end(), comp);
-        int sz = meetings.size();
-
-        for (int i = 0; i < sz; i++)
+        for (int i = 0; i < n; i++)
         {
-            int p1 = meetings[i][0];
-            int p2 = meetings[i][1];
-            int t = meetings[i][2];
-
-            adj[p1].push_back({t, p2});
-            adj[p2].push_back({t, p1});
-        }
-
-        set<int> secret;
-        secret.insert(0);
-        secret.insert(firstPerson);
-
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
-
-        q.push({0, 0});
-        q.push({0, firstPerson});
-
-        while (!q.empty())
-        {
-            auto p1 = q.top();
-            q.pop();
-
-            for (int i = 0; i < adj[p1.second].size(); i++)
-            {
-                auto p2 = adj[p1.second][i];
-
-                if (p1.first <= p2.first and secret.find(p2.second) == secret.end())
-                {
-                    q.push({p2.first, p2.second});
-                    secret.insert(p2.second);
-                }
+            bool decs = check(i,n,matrix);
+            if(!decs){
+                return false;
             }
         }
+        return true;
+    }
 
-        vector<int> ans;
-        ans.assign(secret.begin(), secret.end());
-        return ans;
+    bool check(int r,int n, vector<vector<int>>& matrix){
+        
+        for(int num=1;num<=n;num++){
+            bool rowOk=false,colOk=false;
+            for (int i = 0; i < n; i++)
+            {
+                 if(matrix[r][i]==num){
+                     rowOk=true;
+                 } 
+
+                 if(matrix[i][r]==num){
+                     colOk=true;
+                 }
+            }
+
+            if(!rowOk || !colOk){
+                return false;
+            }
+        }
+        
+        return true;
     }
 };
+
 void solve()
 {
 
@@ -83,26 +67,6 @@ void solve()
 
     for (int tc = 0; tc < ntc; tc++)
     {
-        string s;
-        cin >> s;
-        int a = 0, b = 0, c = 0, n = s.size();
-
-        for (int i = 0; i < n; i++)
-        {
-            if (s[i] == 'A')
-                a++;
-            if (s[i] == 'B')
-                b++;
-            if (s[i] == 'C')
-                c++;
-        }
-
-        if (a + c == b)
-            cout << "YES"
-                 << "\n";
-        else
-            cout << "NO"
-                 << "\n";
     }
 }
 

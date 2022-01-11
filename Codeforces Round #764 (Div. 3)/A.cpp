@@ -20,6 +20,7 @@ void setupFileIO(string fin = "input.txt", string fout = "output.txt")
     freopen(fout.c_str(), "w", stdout);
 }
 
+
 void solve()
 {
 
@@ -28,7 +29,20 @@ void solve()
 
     for (int tc = 0; tc < ntc; tc++)
     {
-        
+        int n;
+        cin>>n;
+
+        int lo=INT_MAX,hi=INT_MIN;
+
+        for(int i=0;i<n;i++){
+            int e;
+            cin>>e;
+
+            lo=min(e,lo);
+            hi=max(e,hi);
+        }
+
+        cout<<hi-lo<<"\n";
     }
 }
 
