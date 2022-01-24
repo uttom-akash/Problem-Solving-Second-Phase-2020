@@ -28,37 +28,45 @@ void solve()
 
     for (int tc = 0; tc < ntc; tc++)
     {
+        int n;
+        ll h;
+        cin >> n >> h;
 
-        string s, t, ss = "";
-        cin >> s >> t;
+        ll sec[105];
 
-        int n = s.size();
-        sort(s.begin(), s.end());
-
-        if (t == "abc" and s.find('c') != n)
+        for (int i = 0; i < n; i++)
         {
-            string c = "";
-            int aep = 0;
+            cin >> sec[i];
+        }
+
+        sort(sec, sec + n);
+
+        ll lo = 1, hi = h;
+
+        while (lo < hi)
+        {
+            ll mid = (lo + hi) >> 1;
+
+            ll hitp = 0;
 
             for (int i = 0; i < n; i++)
             {
-                if (s[i] == 'c')
-                    c += 'c';
+                if (i < n - 1)
+                    hitp += min(mid, sec[i + 1] - sec[i]);
                 else
-                    ss += s[i];
-
-                if (s[i] == 'a')
-                    aep++;
+                    hitp += (mid);
             }
 
-            ss = ss.substr(0, aep) + c + ss.substr(aep, ss.size());
+            if (hitp >= h)
+            {
+                hi = mid;
+            }
+            else
+            {
+                lo = mid + 1;
+            }
         }
-        else
-        {
-            ss = s;
-        }
-
-        cout << ss << "\n";
+        cout << lo << "\n";
     }
 }
 
