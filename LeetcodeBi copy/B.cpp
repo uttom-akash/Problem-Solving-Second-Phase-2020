@@ -22,53 +22,31 @@ void setupFileIO(string fin = "input.txt", string fout = "output.txt")
 
 class Solution {
 public:
-    int wordCount(vector<string>& startWords, vector<string>& targetWords) {
-        
-        map<string,int> counter;
-
-        for (auto word : startWords)
-        {
-            sort(word.begin(),word.end());
-
-            counter[word]++;
-        }
+    int minMoves(int target, int maxDoubles) {
 
         int ans=0;
-        for (auto word : targetWords)
+        while (maxDoubles && target>1)
         {
-            sort(word.begin(),word.end());
-            int sz= word.size();
-
-            for(int i=0;i<sz;i++){
-                string s="";
-                for(int j=0;j<sz;j++){
-                    if(i==j)continue;
-                    s+=word[j];
-                }
-
-                if(counter[s]>0){
-                    counter[s]--;
-                    ans++;
-                    break;
-                }
+            if(target&1)target--;
+            else {
+                target>>=1;
+                maxDoubles--;
             }
+            ans++;
         }
-        
+
+        ans+=(--target);
 
         return ans;
+           
     }
 };
 
 void solve()
 {
 
-    int ntc;
-    cin >> ntc;
-
-    for (int tc = 0; tc < ntc; tc++)
-    {
-    
-    }
+    Solution s;
+    s.minMoves(19,2);
 }
 
 int main()
