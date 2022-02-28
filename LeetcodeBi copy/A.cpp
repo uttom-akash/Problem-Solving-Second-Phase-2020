@@ -22,40 +22,19 @@ void setupFileIO(string fin = "input.txt", string fout = "output.txt")
 
 class Solution {
 public:
-    bool checkValid(vector<vector<int>>& matrix) {
-        int n=matrix.size();
-
-        for (int i = 0; i < n; i++)
+    vector<string> divideString(string s, int k, char fill) {
+        int sz = s.size();
+        vector<string> ans;
+        for (int i = 0; i < sz; i+=k)
         {
-            bool decs = check(i,n,matrix);
-            if(!decs){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    bool check(int r,int n, vector<vector<int>>& matrix){
-        
-        for(int num=1;num<=n;num++){
-            bool rowOk=false,colOk=false;
-            for (int i = 0; i < n; i++)
+            auto ss=s.substr(i,k);
+            while (ss.size()<k)
             {
-                 if(matrix[r][i]==num){
-                     rowOk=true;
-                 } 
-
-                 if(matrix[i][r]==num){
-                     colOk=true;
-                 }
+                ss=ss+fill;
             }
-
-            if(!rowOk || !colOk){
-                return false;
-            }
+            ans.push_back(ss);
         }
-        
-        return true;
+        return ans;         
     }
 };
 

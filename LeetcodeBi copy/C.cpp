@@ -20,51 +20,34 @@ void setupFileIO(string fin = "input.txt", string fout = "output.txt")
     freopen(fout.c_str(), "w", stdout);
 }
 
-struct Plant
-{
-    int pt,gt;
-
-    Plant(int p,int g){
-        pt=p;
-        gt=g;
-    }
-    bool operator<(const Plant &p)
-    {
-        if(gt>p.gt)
-            return true;
-        if(gt==p.gt && pt<p.pt)
-            return true;
-        
-        return false;
-    }
-};
-
 class Solution {
 public:
-    int earliestFullBloom(vector<int>& plantTime, vector<int>& growTime) {
+    long long mostPoints(vector<vector<int>>& questions) {
+        int sz= questions.size();
+        long long dp[sz+5][2];
+
+        dp[sz][0]=0;
+        dp[sz][1]=0;
         
-        int sz= plantTime.size();
-        vector<Plant> plants;
-
-        for (int i = 0; i < sz; i++)
+        long long ans=0;
+        
+        for (int i = sz-1; i >=0; i--)
         {
-            plants.push_back(Plant(plantTime[i],growTime[i]));    
+            int p=questions[i][0];
+            int skip=questions[i][1]+1;
+
+            dp[i][0]=p;
+            if(i+skip<sz){
+                dp[i][0]+= max(dp[i+skip][0],dp[i+skip][1]);
+            }
+
+            dp[i][1]= max(dp[i+1][0],dp[i+1][1]);
+            
+            
+            ans= max(dp[i][0],dp[i][1]);
         }
-
-        sort(plants.begin(),plants.end());
-
-        int time=0,carry=0;
-        for (int i = 0; i < sz; i++)
-        {
-            time+=plants[i].pt;
-
-            if(carry>=plants[i].pt)carry-=plants[i].pt;
-            else carry=0;
-
-            carry=max(carry, plants[i].gt);
-        }
-
-        return time + carry;
+           
+        return ans;
     }
 };
 
