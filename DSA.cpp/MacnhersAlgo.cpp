@@ -45,7 +45,7 @@ void applyManchers(string s)
         if (i + Z[i] > right)
         {
             center = i;
-            right = +Z[i];
+            right = i + Z[i];
         }
     }
 
