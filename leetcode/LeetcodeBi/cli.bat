@@ -1,1 +1,0 @@
-g++ A.cpp -o a.out && a.out
