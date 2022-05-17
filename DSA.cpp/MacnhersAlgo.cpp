@@ -66,7 +66,7 @@ void applyManchers(string s)
 
 void solve()
 {
-    string s = "anna";
+    string s = "xfxzannazdz";
     applyManchers(s);
 }
 
